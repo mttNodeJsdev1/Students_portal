@@ -25,7 +25,7 @@ export default function TypingPage() {
       <Header />
       <div className="flex items-center justify-center flex-1 h-full ml-80 mr-80 bg-sky-300 ">
         <div className="w-full max-w-md p-8 mb-10 bg-white rounded-lg shadow-lg mt-7">
-          <div className="py-3 mb-6 text-center text-white bg-blue-400 rounded-md">
+          <div className="py-3 mb-6 text-center text-white bg-sky-400 rounded-md">
             <h2 className="text-lg italic font-semibold">
               Typing Training Test
             </h2>
@@ -88,7 +88,7 @@ export default function TypingPage() {
             <div className="flex justify-center">
               <button
                 onClick={handleStartTest}
-                className="w-[100px] mt-4 bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600"
+                className="w-[100px] mt-4 cursor-pointer  bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600"
               >
                 Start Test
               </button>

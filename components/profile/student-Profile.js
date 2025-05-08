@@ -22,6 +22,8 @@ const Profile = () => {
   };
 
   const [formData, setFormData] = useState(defaultFormData);
+  const [alertMessage, setAlertMessage] = useState("");
+  const [showAlert, setShowAlert] = useState(false);
 
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem("data"));
@@ -102,8 +104,6 @@ const Profile = () => {
           }
           alt="profile"
           className="object-cover w-24 h-24 border-2 border-gray-300 rounded-full"
-          width={120}
-          height={60}
         />
 
         {/* Icons visible on hover */}
@@ -175,7 +175,6 @@ const Profile = () => {
           <span className="mb-1 text-sm font-medium text-gray-700">
             Student Code
           </span>
-
           <input
             name="studentCode"
             value={formData.studentCode}
@@ -318,7 +317,7 @@ const Profile = () => {
         </div>
         <button
           type="submit"
-          className="content-center px-4 py-2 mt-4 text-white bg-blue-500 rounded mr-30 "
+          className="content-center px-4 py-2 mt-4 text-white bg-blue-500 hover:bg-blue-400 cursor-pointer rounded mr-30 "
         >
           Save & Change
         </button>

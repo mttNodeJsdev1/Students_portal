@@ -116,7 +116,7 @@ const ForgotPassword = () => {
             </div>
             <button
               onClick={handleSendOtp}
-              className="bg-blue-500 hover:bg-blue-700 transition text-white px-4 py-2 rounded-md w-full font-medium"
+              className="bg-sky-400 hover:bg-blue-700 transition text-white px-4 py-2 rounded-md w-full font-medium"
             >
               Send OTP
             </button>
@@ -132,7 +132,7 @@ const ForgotPassword = () => {
             />
             <button
               onClick={handleVerifyOtp}
-              className="bg-blue-500 cursor-pointer  hover:bg-blue-700 transition text-white px-4 py-2 rounded-md w-full font-medium mb-3"
+              className="bg-sky-400 cursor-pointer  hover:bg-blue-700 transition text-white px-4 py-2 rounded-md w-full font-medium mb-3"
             >
               Verify OTP
             </button>
@@ -155,7 +155,7 @@ const ForgotPassword = () => {
                 />
                 <button
                   onClick={handleResetPassword}
-                  className="bg-blue-500 cursor-pointer  hover:bg-blue-700 transition text-white px-4 py-2 rounded-md w-full font-medium"
+                  className="bg-sky-400 cursor-pointer  hover:bg-blue-700 transition text-white px-4 py-2 rounded-md w-full font-medium"
                 >
                   Reset Password
                 </button>

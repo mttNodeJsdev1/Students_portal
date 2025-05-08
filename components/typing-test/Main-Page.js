@@ -10,6 +10,9 @@ const PracticeTestCards = () => {
     router.push("/practice-test");
   };
 
+  const handleGetResult = () => {
+    router.push("/test-typing/Result");
+  };
   const handleStartTest = () => {
     router.push("/typing-test");
   };
@@ -32,12 +35,21 @@ const PracticeTestCards = () => {
       <div className=" bg-white border-sky-950 shadow-lg rounded-2xl p-6 w-[300px] h-[260px] border hover:shadow-2xl transition flex flex-col justify-between items-center">
         <div className="w-full h-[200px] border border-blue-300 bg-sky-400 p-4 rounded-lg flex flex-col items-center gap-15">
           <h2 className="text-2xl text-white font-semibold">Test Mode</h2>
-          <button
-            onClick={handleStartTest}
-            className="bg-blue-950 border-white text-white px-9 py-2 h-[40px] rounded hover:bg-blue-900 transition cursor-pointer"
-          >
-            Start Test
-          </button>
+          <div className="flex gap-4">
+            <button
+              onClick={handleStartTest}
+              className="bg-blue-950 border-white flex text-white ml-2 w-[6rem] p-2 h-[40px] rounded hover:bg-blue-900 transition cursor-pointer"
+            >
+              Start Test
+            </button>
+
+            <button
+              onClick={handleGetResult}
+              className="bg-blue-950 border-white text-white w-[6rem] p-2 h-[40px]  rounded hover:bg-blue-900 transition cursor-pointer"
+            >
+              Test Result
+            </button>
+          </div>
         </div>
       </div>
     </div>

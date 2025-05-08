@@ -12,6 +12,14 @@ export const passages = {
       text: `Technology has become an inseparable part of modern society. From smartphones to AI, innovations are reshaping how we communicate, learn, and work. While it brings efficiency and global connectivity, it also raises concerns like privacy invasion and job displacement. It is essential for societies to adapt responsibly and ensure that technology serves humanity’s best interests.
       `,
     },
+    {
+      id: 3,
+      title: "The Road to Success",
+      text: `Success is not an accident, it’s the result of consistent hard work, dedication, and perseverance. Many people give up when they encounter obstacles, but those who persist despite the challenges are the ones who ultimately succeed. Each failure teaches us a lesson, pushing us closer to our goals. It’s important to stay focused on our ambitions and never lose sight of what we truly want to achieve. Time is our most valuable asset, and how we use it determines our success in life. Learning from our mistakes and growing stronger with each experience makes us resilient. Surrounding ourselves with positive influences can help keep us motivated when the journey gets tough. Remember that every small effort counts, and over time, these efforts compound to create significant results. Always stay curious, work hard, and believe in your potential. The road to success may be long, but the destination is worth the effort.
+
+   
+      `,
+    },
   ],
   Hindi: [
     {
@@ -27,4 +35,4 @@ export const passages = {
   ],
 };
 
-export const timeOptions = [60, 120, 180];
+export const timeOptions = [60, 300, 600, 1200];

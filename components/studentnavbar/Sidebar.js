@@ -46,12 +46,10 @@ export default function StudentSidebar() {
 
       {/* Profile Section */}
       <div className="flex flex-col items-center pb-4 border-b border-blue-300">
-        <Image
-          src={formData?.data?.studentImg || "/profile.png"}
+        <img
+          src={formData?.data?.studentImg}
           alt="User"
           className="transition-all duration-300 rounded-full w-14 h-14"
-          width={500} // set image width
-          height={300} // set image height
         />
         {isSidebarExpanded && (
           <div className="mt-2 text-center">
@@ -71,7 +69,6 @@ export default function StudentSidebar() {
             <User className="w-5 h-5" />
             {isSidebarExpanded && <span className="ml-4">Profile</span>}
           </li>
-
           <li
             className="flex items-center px-4 py-3 transition-all duration-200 cursor-pointer hover:bg-sky-400"
             onClick={() => router.push("/sarkariJobs")}
@@ -91,7 +88,7 @@ export default function StudentSidebar() {
           {/* Study Material with Dropdown */}
           <li>
             <div
-              className="flex items-center px-4 py-3 transition-all duration-200 cursor-pointer hover:bg-sky-400"
+              className="flex items-center px-4 py-3 h-full transition-all duration-200 cursor-pointer hover:bg-sky-400"
               onClick={() => setIsStudyDropdownOpen(!isStudyDropdownOpen)}
             >
               <FileText className="w-5 h-5" />
@@ -111,7 +108,6 @@ export default function StudentSidebar() {
                 >
                   » Book
                 </li>
-
                 <li
                   className="transition-all duration-300 transform cursor-pointer hover:text-blue-200 hover:translate-x-2"
                   onClick={() => router.push("/study-material/notes")}

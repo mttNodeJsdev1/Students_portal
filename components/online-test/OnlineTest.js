@@ -129,7 +129,7 @@ export default function OnlineTestCard() {
                     onClick={() =>
                       router.push(`/online-test/Analysis/${test.id}`)
                     }
-                    className="bg-[#001F5B] text-white flex items-center gap-2 rounded-md p-[5px] text-sm hover:opacity-90"
+                    className="bg-[#001F5B] cursor-pointer  text-white flex items-center gap-2 rounded-md p-[5px] text-sm hover:opacity-90"
                   >
                     <IoAnalytics />
                     Analysis
@@ -137,7 +137,7 @@ export default function OnlineTestCard() {
                 )}
                 <button
                   onClick={() => openTestInNewWindow(test)}
-                  className="bg-[#001F5B] text-white rounded-md px-4 py-2 text-sm hover:opacity-90"
+                  className="bg-[#001F5B]  cursor-pointer text-white rounded-md px-4 py-2 text-sm hover:opacity-90"
                 >
                   Start Test
                 </button>

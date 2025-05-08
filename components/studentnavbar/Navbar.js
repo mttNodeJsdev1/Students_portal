@@ -53,7 +53,7 @@ export default function StudentNavbar() {
           </span>
         </button>
         <button
-          className="flex items-center gap-2 px-5 py-2 text-white rounded-sm cursor-pointer bg-sky-400 hover:bg-blue-700"
+          className="flex items-center gap-2 px-5 py-2 text-white rounded-sm cursor-pointer bg-sky-400 hover:bg-sky-500"
           onClick={handelLogout}
         >
           <Logout className="w-5 h-5" fontSize="small" />

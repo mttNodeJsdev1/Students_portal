@@ -198,15 +198,15 @@ const JobTable = () => {
         <div className="flex flex-col gap-4 lg:flex-row">
           <div className="lg:py-4 sm:p-4 p-2 w-[650px]">
             <div className=" max-w-[1200px] relative p-6 text-white text-center border-red-800 rounded-tl-xl rounded-br-xl min-h-10 lg:text-lg text-xs lg:min-h-20 mt-4">
-              <div className="absolute inset-0 flex items-center justify-start px-6 bg-blue-500">
+              <div className="absolute inset-0 flex items-center justify-start px-6 bg-sky-400">
                 <h3 className="relative z-10 text-sm font-medium lg:text-xl lg:font-medium">
                   All Government Jobs
                 </h3>
               </div>
-              <div className="absolute top-0 right-2 w-full h-2/4 bg-blue-500 transform skew-x-[-20deg]"></div>
-              <div className="absolute bottom-0 right-2 w-full h-2/4 bg-blue-500 transform skew-x-[20deg]"></div>
-              <div className="absolute top-0 left-2 w-full h-2/4 bg-blue-500 transform skew-x-[20deg] -rotate-180"></div>
-              <div className="absolute bottom-0 left-2 w-full h-2/4 bg-blue-500 transform skew-x-[-20deg] -rotate-180"></div>
+              <div className="absolute top-0 right-2 w-full h-2/4 bg-sky-400 transform skew-x-[-20deg]"></div>
+              <div className="absolute bottom-0 right-2 w-full h-2/4 bg-sky-400 transform skew-x-[20deg]"></div>
+              <div className="absolute top-0 left-2 w-full h-2/4 bg-sky-400 transform skew-x-[20deg] -rotate-180"></div>
+              <div className="absolute bottom-0 left-2 w-full h-2/4 bg-sky-400 transform skew-x-[-20deg] -rotate-180"></div>
             </div>
 
             {/* Job List */}
@@ -270,14 +270,14 @@ const JobTable = () => {
         <div className="fixed z-50 flex gap-3 bottom-5 right-5">
           <button
             onClick={scrollToTop}
-            className="p-3 text-white transition duration-300 bg-blue-500 rounded-full shadow-lg cursor-pointer hover:bg-blue-700"
+            className="p-3 text-white transition duration-300 bg-sky-400 rounded-full shadow-lg cursor-pointer hover:bg-blue-700"
           >
             <FaArrowUp size={17} />
           </button>
 
           <button
             onClick={scrollToBottom}
-            className="p-3 text-white transition duration-300 bg-blue-500 rounded-full shadow-lg cursor-pointer hover:bg-blue-700"
+            className="p-3 text-white transition duration-300 bg-sky-400 rounded-full shadow-lg cursor-pointer hover:bg-blue-700"
           >
             <FaArrowDown size={17} />
           </button>

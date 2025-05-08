@@ -261,7 +261,7 @@ export default function StartTypingTest() {
                   </span>
                 </div>
                 <button
-                  className="bg-[#172F5F] text-white py-2 px-4 rounded hover:bg-blue-700 transition"
+                  className="bg-[#172F5F] text-white py-2 px-4 rounded cursor-pointer hover:bg-blue-700 transition"
                   onClick={() => window.location.reload()}
                 >
                   Restart{" "}

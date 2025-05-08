@@ -35,8 +35,8 @@ const Category = () => {
           </h3>
         </div>
         {/* Decorative Background Elements */}
-        <div className="absolute top-0 left-0 w-full h-2/4 bg-blue-500 transform skew-x-[20deg]"></div>
-        <div className="absolute bottom-0 left-0 w-full h-2/4 bg-blue-500 transform skew-x-[-20deg]"></div>
+        <div className="absolute top-0 left-0 w-full h-2/4 bg-sky-400 transform skew-x-[20deg]"></div>
+        <div className="absolute bottom-0 left-0 w-full h-2/4 bg-sky-400 transform skew-x-[-20deg]"></div>
       </div>
 
       {/* Content Section */}

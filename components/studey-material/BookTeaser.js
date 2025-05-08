@@ -6,7 +6,7 @@ export default function BookTeaser() {
   return (
     <div className="border border-gray-300 w-72 max-w-sm mx-auto rounded-sm overflow-hidden shadow absolute top-10 left-[790px]">
       {/* Header */}
-      <div className="bg-blue-500 text-white text-center font-semibold py-2">
+      <div className="bg-sky-400 text-white text-center font-semibold py-2">
         Free Books
       </div>
 

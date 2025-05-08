@@ -10,7 +10,7 @@ export default function BookPreview() {
   return (
     <div className="border border-gray-300 w-full max-w-sm mx-auto rounded-sm overflow-hidden shadow">
       {/* Header */}
-      <div className="bg-blue-600 text-white text-center font-semibold py-2">
+      <div className="bg-sky-400 text-white text-center font-semibold py-2">
         Free Books
       </div>
       {/* Book List */}

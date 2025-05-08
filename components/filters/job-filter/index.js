@@ -197,13 +197,13 @@ const JobFilters = ({
       <div className="flex justify-center items-center mt-2 gap-4">
         <Button
           onClick={applyFilters}
-          className="!text-white font-semibold !px-6 !py-3 !bg-blue-600 rounded-lg hover:bg-secondary transition duration-200"
+          className="!text-white font-semibold !px-6 !py-3 !bg-sky-400 rounded-lg hover:bg-secondary transition duration-200"
         >
           Apply Filters
         </Button>
         <Button
           onClick={clearFilters}
-          className="!bg-blue-600 !text-white font-semibold !px-6 !py-3 rounded-lg hover:bg-secondary transition duration-200"
+          className="!bg-sky-400 !text-white font-semibold !px-6 !py-3 rounded-lg hover:bg-secondary transition duration-200"
         >
           {" "}
           Clear Filters

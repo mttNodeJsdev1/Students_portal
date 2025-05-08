@@ -238,7 +238,7 @@ export default function StudentSignup() {
                 {/* Send OTP Button */}
                 <button
                   type="button"
-                  className="px-2 py-1 text-xs text-white bg-blue-500 rounded-md cursor-pointer w-fit"
+                  className="px-2 py-1 text-xs text-white bg-sky-400 rounded-md cursor-pointer w-fit"
                   onClick={handleSendOTP}
                 >
                   Send OTP
@@ -265,7 +265,7 @@ export default function StudentSignup() {
                   {!otpVerified ? (
                     <button
                       type="button"
-                      className="px-2 py-1 text-xs text-white bg-blue-500 rounded-md cursor-pointer w-fit"
+                      className="px-2 py-1 text-xs text-white bg-sky-400 rounded-md cursor-pointer w-fit"
                       onClick={handleVerifyOTP}
                     >
                       Verify OTP
@@ -345,7 +345,7 @@ export default function StudentSignup() {
             {/* Submit Button */}
             <button
               type="submit"
-              className="w-full py-3 font-semibold text-white bg-blue-500 rounded-lg cursor-pointer bg-darkblue"
+              className="w-full py-3 font-semibold text-white bg-sky-400 rounded-lg cursor-pointer bg-darkblue"
               disabled={!otpVerified}
             >
               Sign Up

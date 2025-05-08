@@ -306,7 +306,7 @@ const StartTest = () => {
 
       {/* Test Content */}
       <div className="w-full ">
-        <div className="bg-blue-400 text-center  ml-0 w-full h-[70px]">
+        <div className="bg-sky-400 text-center  ml-0 w-full h-[70px]">
           <h2 className="pt-6 text-xl font-semibold text-white ">
             {testData.title}
           </h2>
@@ -400,7 +400,7 @@ const StartTest = () => {
       {/* Right Panel */}
       <div className=" w-[500px] border-1 border-blue-400 h-fit  ">
         <div className="mb-4">
-          <div className="bg-blue-400 text-center ml-0 w-full h-[70px]">
+          <div className="bg-sky-400 text-center ml-0 w-full h-[70px]">
             {" "}
             <h3 className="pt-6 text-lg font-semibold text-white">Time Left</h3>
           </div>
@@ -424,12 +424,12 @@ const StartTest = () => {
           </div>
         </div>
         <div className="mb-16 ">
-          <div className="bg-blue-400 text-center      mt-5 ml-0 w-full h-[50px]">
+          <div className="bg-sky-400 text-center      mt-5 ml-0 w-full h-[50px]">
             <h4 className="pt-3 mb-2 text-lg font-medium text-white">
               Question
             </h4>{" "}
           </div>
-          <div className="grid grid-cols-9 gap-2 mt-3 mb-4 ml-2 text-xs text-center ">
+          <div className="grid grid-cols-9 gap-2 mt-3 mb-4 ml-2 text-xs text-center  ">
             {questions.map((q, i) => {
               const status = getQuestionStatus(q.id);
               const bgColor =
@@ -442,7 +442,7 @@ const StartTest = () => {
                 <button
                   key={i}
                   onClick={() => handleNav(i)}
-                  className={` text-xs w-6 h-6  rounded-full border ${bgColor}`}
+                  className={` text-xs w-6 h-6 cursor-pointer hover:bg-gray-300  rounded-full border ${bgColor}`}
                 >
                   {i + 1}
                 </button>
@@ -464,7 +464,7 @@ const StartTest = () => {
             {/* Other right panel content */}
             <button
               onClick={handleSubmitTest}
-              className={`w-[100px] text-center ml-30 mt-10 bg-blue-800 text-white py-2 rounded  `}
+              className={`w-[100px] text-center ml-30 mt-10 bg-blue-800 text-white py-2 rounded cursor-pointer   `}
             >
               {/*   ${
                 timeLeft > 0 && "pointer-events-none bg-gray-300"
