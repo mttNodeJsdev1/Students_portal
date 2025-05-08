@@ -10,4 +10,5 @@ const TestPage = ({ params }) => {
     </div>
   );
 };
+
 export default TestPage;

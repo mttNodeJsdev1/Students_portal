@@ -31,9 +31,19 @@ export default function NotesList() {
     }
   }, []);
 
-  const filteredNotes = notes.filter((note) =>
-    note.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  // const filteredNotes = notes.filter((note) =>
+  //   note.title.toLowerCase().includes(searchTerm.toLowerCase())
+  // );
+
+  const filteredNotes =
+    Array.isArray(notes) && notes.length > 0
+      ? notes.filter((note) =>
+          note.title.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+      : [];
+
+  // console.log("object", notes);
+  // console.log("Array.isArray(notes):", Array.isArray(notes));
 
   return (
     <div className="relative z-10 p-4">

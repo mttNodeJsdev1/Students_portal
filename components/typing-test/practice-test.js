@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { languages, passages, timeOptions } from "./Mockdata";
-import Header from "./Header";
+import Header from "../online-typing-test/start-test/Header";
 export default function TypingMainTest() {
   const router = useRouter();
   const [selectedLanguage, setSelectedLanguage] = useState(languages[0]);
@@ -82,7 +82,7 @@ export default function TypingMainTest() {
             {/* Start Test Button */}
             <div className="flex justify-center">
               <button
-                onClick={handleStartTest}
+                onClick={handleStartTest}  target="_blank"
                 className="w-[100px] mt-4  cursor-pointer  bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600"
               >
                 Start Test

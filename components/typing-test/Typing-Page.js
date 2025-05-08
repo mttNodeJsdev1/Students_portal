@@ -23,7 +23,7 @@ export default function TypingPage() {
   return (
     <div>
       <Header />
-      <div className="flex items-center justify-center flex-1 h-full ml-80 mr-80 bg-sky-300 ">
+      <div className="flex items-center justify-center flex-1 h-full   relative z-10">
         <div className="w-full max-w-md p-8 mb-10 bg-white rounded-lg shadow-lg mt-7">
           <div className="py-3 mb-6 text-center text-white bg-sky-400 rounded-md">
             <h2 className="text-lg italic font-semibold">

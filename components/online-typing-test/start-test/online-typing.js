@@ -1,9 +1,9 @@
 "use client";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState, useRef, useCallback } from "react";
-import { passages } from "./Mockdata";
 import { MdOutlineTimer } from "react-icons/md";
-import Header from "../online-typing-test/start-test/Header";
+import Header from "./Header";
+import { useRouter } from "next/navigation";
 
 export default function StartTypingTest() {
   const searchParams = useSearchParams();
@@ -13,8 +13,10 @@ export default function StartTypingTest() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [results, setResults] = useState(null);
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
   const inputRef = useRef(null);
-
+  const router = useRouter();
   // Calculate results
   const calculateResults = useCallback(() => {
     const passageWords = passage.split(/\s+/);
@@ -24,13 +26,14 @@ export default function StartTypingTest() {
       return i < passageWords.length && word === passageWords[i];
     }).length;
     const wrongWords = typedWords.length - correctWords;
-    // Calculate total correct characters (only from correct words)
+
     let correctChars = 0;
     typedWords.forEach((word, i) => {
       if (i < passageWords.length && word === passageWords[i]) {
         correctChars += word.length;
       }
     });
+
     const totalChars = passage.length;
     const wrongChars = typedText.length - correctChars;
     const accuracy = Math.round((correctChars / totalChars) * 100);
@@ -38,7 +41,13 @@ export default function StartTypingTest() {
     const timeInMinutes = (searchParams.get("time") - timeLeft) / 60;
     const wpm = Math.round(correctWords / Math.max(timeInMinutes, 0.1));
 
-    setResults({
+    const wordAnalysis = passageWords.map((word, i) => ({
+      expected: word,
+      typed: typedWords[i] || "",
+      isCorrect: word === typedWords[i],
+    }));
+
+    const resultData = {
       wpm,
       keystrokes: typedText.length,
       accuracy,
@@ -47,7 +56,11 @@ export default function StartTypingTest() {
       correctWords,
       wrongWords,
       timeTaken: searchParams.get("time") - timeLeft,
-    });
+      passage,
+      wordAnalysis,
+    };
+    setResults(resultData);
+    localStorage.setItem("typingResult", JSON.stringify(resultData));
   }, [typedText, passage, timeLeft, searchParams]);
 
   const handleSubmit = useCallback(() => {
@@ -56,36 +69,61 @@ export default function StartTypingTest() {
     calculateResults();
   }, [isSubmitted, calculateResults]);
 
-  // Initialize test
+  // Fetch passage from API
   useEffect(() => {
-    const language = searchParams.get("language");
-    const passageId = searchParams.get("passageId");
-    const time = parseInt(searchParams.get("time"));
-    if (!language || !passageId || isNaN(time)) return;
-    const foundPassage = passages[language]?.find(
-      (p) => p.id === parseInt(passageId)
-    );
-    setPassage(foundPassage?.text || "");
-    setTimeLeft(time);
-    setCurrentWordIndex(0);
-    setTypedText("");
+    const fetchPassage = async () => {
+      try {
+        const id = searchParams.get("id");
+        if (!id) return;
+        console.log("object", id);
+
+        const response = await fetch(
+          `https://backend.indiasarkarinaukri.com/typing-test/${id}`
+        );
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch passage");
+        }
+
+        const data = await response.json();
+
+        if (data.success && data.data.length > 0) {
+          const testData = data.data[0];
+          setPassage(testData.typingContent);
+          setTimeLeft(
+            parseInt(searchParams.get("time")) || testData.timeLimit * 60
+          );
+        } else {
+          throw new Error("No passage data available");
+        }
+      } catch (err) {
+        setError(err.message);
+        console.error("Error fetching passage:", err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    // console.log("object", data);
+
+    fetchPassage();
   }, [searchParams]);
 
   // Timer logic
   useEffect(() => {
-    if (timeLeft <= 0 || isSubmitted) return;
+    if (timeLeft <= 0 || isSubmitted || isLoading) return;
     const timer = setTimeout(() => {
       setTimeLeft((prev) => prev - 1);
     }, 1000);
     return () => clearTimeout(timer);
-  }, [timeLeft, isSubmitted]);
+  }, [timeLeft, isSubmitted, isLoading]);
 
   // Auto-submit when time runs out
   useEffect(() => {
-    if (timeLeft === 0 && !isSubmitted && passage) {
+    if (timeLeft === 0 && !isSubmitted && passage && !isLoading) {
       handleSubmit();
     }
-  }, [timeLeft, isSubmitted, handleSubmit, passage]);
+  }, [timeLeft, isSubmitted, handleSubmit, passage, isLoading]);
 
   const formatTime = (seconds) => {
     const mins = Math.floor(seconds / 60);
@@ -96,13 +134,8 @@ export default function StartTypingTest() {
   const handleTyping = (e) => {
     if (isSubmitted) return;
     const value = e.target.value;
-    // Split the typed text into words
     const words = typedText.split(/\s+/);
-
-    // Update the current word
     words[currentWordIndex] = value;
-
-    // Join back with spaces
     setTypedText(words.join(" "));
   };
 
@@ -113,30 +146,22 @@ export default function StartTypingTest() {
     const typedWords = typedText.split(/\s+/);
     const currentTypedWord = typedWords[currentWordIndex] || "";
 
-    // Handle space to move to next word
     if (e.key === " " && currentTypedWord.length > 0) {
       e.preventDefault();
       if (currentWordIndex < passageWords.length - 1) {
         setCurrentWordIndex((prev) => prev + 1);
-        // Focus on the input for the next word
         setTimeout(() => inputRef.current?.focus(), 0);
       }
       return;
     }
 
-    // Handle backspace to move to previous word if at start of current word
     if (e.key === "Backspace") {
       const cursorPosition = e.target.selectionStart;
-      const textBeforeCursor = typedText.substring(0, cursorPosition);
-      const currentWordStart =
-        typedText.lastIndexOf(" ", cursorPosition - 1) + 1;
-
       if (cursorPosition === 0 && currentWordIndex > 0) {
         e.preventDefault();
         setCurrentWordIndex((prev) => prev - 1);
         setTimeout(() => {
           inputRef.current?.focus();
-          // Move cursor to end of previous word
           const prevWord = typedWords[currentWordIndex - 1] || "";
           inputRef.current.setSelectionRange(prevWord.length, prevWord.length);
         }, 0);
@@ -144,8 +169,10 @@ export default function StartTypingTest() {
     }
   };
 
-  // Render passage with word-based highlighting
   const renderPassage = () => {
+    if (isLoading) return <div>Loading passage...</div>;
+    if (error) return <div className="text-red-500">Error: {error}</div>;
+
     const passageWords = passage.split(/\s+/);
     const typedWords = typedText.trim().split(/\s+/);
 
@@ -154,18 +181,10 @@ export default function StartTypingTest() {
       const isCorrect = isTyped && typedWords[wordIndex] === word;
       const isIncorrect = isTyped && typedWords[wordIndex] !== word;
       const isCurrentWord = wordIndex === currentWordIndex;
-
       return (
         <span
           key={wordIndex}
-          className={`${
-            isTyped
-              ? isCorrect
-                ? "text-green-600" // Entire word green if completely correct
-                : "text-red-600" // Entire word red if any character wrong
-              : "text-gray-400" // Untyped words stay gray
-          }  
-          ${isCurrentWord ? "bg-yellow-200" : ""}`}
+          className={`${isCurrentWord ? "bg-yellow-200" : ""}`}
         >
           {word + " "}
         </span>
@@ -173,15 +192,43 @@ export default function StartTypingTest() {
     });
   };
 
+  const handleGetResult = () => {
+    router.push("/test-typing/Result");
+  };
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <Header />
+        <div className="container flex items-center justify-center p-4 mx-auto md:p-6">
+          <div className="text-lg">Loading typing test...</div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <Header />
+        <div className="container flex items-center justify-center p-4 mx-auto md:p-6">
+          <div className=" p-6 text-red-500 bg-white rounded shadow-md">
+            {error}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
-      <div className="container flex p-4 mx-auto md:p-6">
+      <div className="container flex p-9 mx-auto md:p-6 mt-10 ">
         {!isSubmitted ? (
           <div className="flex w-full gap-10">
             {/* Left Side - Passage Display */}
             <div className="flex-col w-2/3 gap-6">
-              <div className="w-[800px] border border-gray-300 p-6  h-[400px] rounded text-lg font-mono whitespace-pre-wrap leading-relaxed overflow-y-auto">
+              <div className="w-[800px] border border-gray-300 p-6 h-[400px] rounded text-lg font-mono whitespace-pre-wrap leading-relaxed overflow-y-auto">
                 {renderPassage()}
               </div>
               <div className="w-full">
@@ -201,7 +248,7 @@ export default function StartTypingTest() {
 
             {/* Right Side - Input, Timer + Submit */}
             <div className="flex flex-col w-1/3 gap-6 ml-30">
-              <div className="w-[180px] h-[100px] border border-sky-300 rounded shadow-lg p-4 flex flex-col items-center justify-center ">
+              <div className="w-[180px] h-[100px] border border-sky-300 rounded shadow-lg p-4 flex flex-col items-center justify-center">
                 <MdOutlineTimer className="h-15 w-15 text-[#172F5F]" />
                 <p className="text-lg font-bold text-[#172F5F]">
                   {formatTime(timeLeft)}
@@ -217,56 +264,20 @@ export default function StartTypingTest() {
           </div>
         ) : (
           // Results Section
-          <div className="max-w-4xl p-6 mx-auto ">
-            <div className="w-[300px] rounded-lg overflow-hidden shadow-md">
-              {/* Header */}
-              <div className="py-3 text-center text-white bg-sky-500">
-                <h2 className="text-lg font-semibold">Result</h2>
-              </div>
-              {/* Main Content */}
-              <div className="p-6 space-y-4 ">
-                {/* WPM */}
-                <div className="text-center">
-                  <h3 className="text-3xl font-bold text-green-600">
-                    {results?.wpm} WPM
-                  </h3>
-                  <p className="text-sm text-gray-600">(words per minute)</p>
-                </div>
-
-                {/* Keystrokes */}
-                <div className="flex justify-between text-sm">
-                  <span>Keystrokes</span>
-                  <span className="font-bold">{results?.keystrokes}</span>
-                </div>
-
-                {/* Accuracy */}
-                <div className="flex justify-between text-sm">
-                  <span>Accuracy</span>
-                  <span className="font-bold">{results?.accuracy}%</span>
-                </div>
-
-                {/* Correct Words */}
-                <div className="flex justify-between text-sm">
-                  <span>Correct words</span>
-                  <span className="font-bold text-green-600">
-                    {results?.correctWords}
-                  </span>
-                </div>
-
-                {/* Wrong Words */}
-                <div className="flex justify-between text-sm">
-                  <span>Wrong words</span>
-                  <span className="font-bold text-red-600">
-                    {results?.wrongWords}
-                  </span>
-                </div>
-                <button
-                  className="bg-[#172F5F] text-white py-2 px-4 rounded cursor-pointer hover:bg-blue-700 transition"
-                  onClick={() => window.location.reload()}
-                >
-                  Restart{" "}
-                </button>
-              </div>
+          <div className="w-full text-center py-10">
+            <div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md">
+              <h2 className="text-2xl font-bold text-green-600 mb-4">
+                Test Completed Successfully!
+              </h2>
+              <p className="text-gray-700 mb-4">
+                Your typing test results have been recorded.
+              </p>
+              <button
+                onClick={handleGetResult}
+                className="cursor-pointer border-2 p-2 rounded-xl border-sky-400 bg-sky-400 font-bold"
+              >
+                Check Score
+              </button>
             </div>
           </div>
         )}

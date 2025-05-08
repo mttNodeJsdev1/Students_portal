@@ -1,12 +1,12 @@
-// components/notes/NotesPreview.js
 "use client";
 
 import Link from "next/link";
 import useNotes from "../hooks/useNotes";
-import { FaRegStickyNote } from "react-icons/fa"; // note icon
+import { FaRegStickyNote } from "react-icons/fa";
 
 export default function NotesPreview() {
   const { notes, loading } = useNotes();
+  const safeNotes = Array.isArray(notes) ? notes : [];
 
   return (
     <div className="border border-gray-300 w-full max-w-sm mx-auto rounded-sm overflow-hidden shadow">
@@ -18,7 +18,7 @@ export default function NotesPreview() {
       {/* Notes List */}
       <ul className="divide-y divide-gray-200 bg-white">
         {!loading &&
-          notes.slice(0, 3).map((note) => (
+          safeNotes.slice(0, 3).map((note) => (
             <li
               key={note.id}
               className="flex items-center gap-2 px-4 py-2 text-sm"

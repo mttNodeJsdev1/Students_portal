@@ -103,13 +103,13 @@ export default function StudentSidebar() {
             {isStudyDropdownOpen && isSidebarExpanded && (
               <ul className="mt-2 space-y-2 text-sm text-white ml-15 ">
                 <li
-                  className="transition-all duration-300 transform cursor-pointer hover:text-blue-200 hover:translate-x-2"
+                  className="transition-all duration-300 transform cursor-pointer hover:text-blue-200 hover:ml-2"
                   onClick={() => router.push("/study-material/book")}
                 >
                   » Book
                 </li>
                 <li
-                  className="transition-all duration-300 transform cursor-pointer hover:text-blue-200 hover:translate-x-2"
+                  className="transition-all duration-300 transform cursor-pointer hover:text-blue-200 hover:ml-2"
                   onClick={() => router.push("/study-material/notes")}
                 >
                   » Notes

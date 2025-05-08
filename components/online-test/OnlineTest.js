@@ -87,15 +87,7 @@ export default function OnlineTestCard() {
                 <h2 className="text-lg font-semibold text-[#001F5B] truncate">
                   {test.title || "Untitled Test"}
                 </h2>
-
-                {/* <button
-                  className="w-20 h-6 font-bold ml-5 mt-2 cursor-pointer bg-blue-500 text-white text-xs rounded-full flex items-center justify-center"
-                  onClick={handleClick}
-                >
-                  Check Rank
-                </button> */}
               </div>
-              {/* <OverAllRank className="w-2 h-2 bg-blue-100 text-blue-800 rounded-full flex items-center justify-center" /> */}
 
               <p className="text-sm text-gray-700 mb-4 w-[200px] ">
                 <span>{test.startDate || "N/A"}</span>
